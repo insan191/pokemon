@@ -5,16 +5,18 @@ import Pagination from '../../components/Pagination/Pagination'
 import PokemonList from '../../components/PokemonList/PokemonList'
 import Search from '../../components/Search/Search'
 import { BASE_API } from '../../constants'
-import { IPokemonData } from '../../interfaces/pokemon.interface'
+import { NamedAPIResourceList } from '../../interfaces/pokemon.interface'
 const Home = () => {
-	const [pokemonData, setPokemonData] = useState<IPokemonData | null>(null)
+	const [pokemonData, setPokemonData] = useState<NamedAPIResourceList | null>(
+		null
+	)
 	const [currentPageUrl, setCurrentPageUrl] = useState<string>(`${BASE_API}`)
 
 	const toast = useToast()
 
 	useEffect(() => {
 		axios
-			.get<IPokemonData>(currentPageUrl)
+			.get<NamedAPIResourceList>(currentPageUrl)
 			.then(({ data }) => {
 				setPokemonData(data)
 			})

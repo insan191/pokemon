@@ -1,5 +1,5 @@
-import { IPokemon } from '../../interfaces/pokemon.interface'
+import { NamedAPIResource } from '../../interfaces/pokemon.interface'
 
 export interface IPokemonList {
-	pokemonData?: IPokemon[]
+	pokemonData?: NamedAPIResource[]
 }

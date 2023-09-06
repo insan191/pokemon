@@ -4,8 +4,8 @@ import { IPokemonList } from './PokemonList.interface'
 const PokemonList: FC<IPokemonList> = ({ pokemonData }) => {
 	return (
 		<ul>
-			{pokemonData?.map(pItem => (
-				<li key={pItem.name}>{pItem?.name}</li>
+			{pokemonData?.map(p => (
+				<li key={p.name}>{p?.name}</li>
 			))}
 		</ul>
 	)
