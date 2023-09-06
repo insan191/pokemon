@@ -8,8 +8,7 @@ import { BASE_API } from '../../constants'
 import { IPokemonData } from '../../interfaces/pokemon.interface'
 const Home = () => {
 	const [pokemonData, setPokemonData] = useState<IPokemonData | null>(null)
-	const [currentPageUrl, setCurrentPageUrl] = useState<string>(BASE_API)
-	const [search, setSearch] = useState<string>('')
+	const [currentPageUrl, setCurrentPageUrl] = useState<string>(`${BASE_API}`)
 
 	const toast = useToast()
 
@@ -21,10 +20,10 @@ const Home = () => {
 			})
 			.catch(error => {
 				toast({
-					title: 'Покемоны убежали :(',
+					title: 'Покемоны спрятались! :(',
 					description: error.message,
 					status: 'error',
-					duration: 9000,
+					duration: 5000,
 					isClosable: true,
 				})
 				console.error('Error fetching data:', error)
@@ -35,8 +34,7 @@ const Home = () => {
 		<div className='home'>
 			<Search
 				placeholder='Какого покемона ищешь?'
-				search={search}
-				setSearch={setSearch}
+				setCurrentPageUrl={setCurrentPageUrl}
 			/>
 			<PokemonList pokemonData={pokemonData?.results} />
 			<Pagination
