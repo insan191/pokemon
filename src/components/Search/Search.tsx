@@ -1,11 +1,16 @@
-import { Button } from '@chakra-ui/react'
-import { ChangeEvent, FC, KeyboardEvent, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, useContext, useState } from 'react'
 import { FaSearchengin } from 'react-icons/fa'
 import { BASE_API } from '../../constants'
+import { CustomContext } from '../../context/context'
 import { ISearch } from './Search.interface'
+import './Search.scss'
 
-const Search: FC<ISearch> = ({ placeholder, setCurrentPageUrl }) => {
+const Search: FC<ISearch> = ({ placeholder }) => {
 	const [search, setSearch] = useState<string>('')
+
+	const customContext = useContext(CustomContext)
+	if (!customContext) return null
+	const { setCurrentPageUrl } = customContext
 
 	const onEnter = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (e.code === 'Enter') {
@@ -19,7 +24,7 @@ const Search: FC<ISearch> = ({ placeholder, setCurrentPageUrl }) => {
 	return (
 		<div className='search'>
 			<input
-				type='search'
+				className='search__input'
 				placeholder={placeholder}
 				value={search}
 				onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -27,9 +32,9 @@ const Search: FC<ISearch> = ({ placeholder, setCurrentPageUrl }) => {
 				}
 				onKeyDown={onEnter}
 			/>
-			<Button size='md' onClick={onClick}>
+			<button className='search__icon' onClick={onClick} type='submit'>
 				<FaSearchengin />
-			</Button>
+			</button>
 		</div>
 	)
 }

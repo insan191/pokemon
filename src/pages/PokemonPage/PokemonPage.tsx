@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import { FC, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { BASE_API } from '../../constants'
 import { Pokemon } from '../../interfaces/pokemon.interface'
 
@@ -9,8 +9,9 @@ const PokemonPage: FC = () => {
 	const [pokemon, setPokemon] = useState<Pokemon | null>(null)
 
 	const toast = useToast()
-
 	const { id } = useParams()
+	const nav = useNavigate()
+
 	useEffect(() => {
 		axios
 			.get<Pokemon>(`${BASE_API}/${id}`)
@@ -19,15 +20,16 @@ const PokemonPage: FC = () => {
 			})
 			.catch(error => {
 				toast({
-					title: 'Покемоны спрятались! :(',
+					title: 'Покемон убежал! :(',
 					description: error.message,
 					status: 'error',
 					duration: 5000,
 					isClosable: true,
 				})
 				console.error('Error fetching data:', error)
+				nav('/notFound')
 			})
-	}, [id, toast])
+	}, [id, nav, toast])
 	return (
 		<div>
 			<h2>{pokemon?.name}</h2>

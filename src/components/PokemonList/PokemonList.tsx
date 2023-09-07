@@ -1,13 +1,15 @@
 import { FC } from 'react'
+import PokemonCard from '../PokemonCard/PokemonCard'
 import { IPokemonList } from './PokemonList.interface'
+import './PokemonList.scss'
 
 const PokemonList: FC<IPokemonList> = ({ pokemonData }) => {
 	return (
-		<ul>
+		<div className='pokemonList'>
 			{pokemonData?.map(p => (
-				<li key={p.name}>{p?.name}</li>
+				<PokemonCard key={p.name} url={p.url} />
 			))}
-		</ul>
+		</div>
 	)
 }
 

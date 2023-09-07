@@ -1,0 +1,33 @@
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	&__logo {
+		color: var(--fighting-type);
+		a {
+			display: flex;
+			align-items: center;
+		}
+		span {
+			font-size: 5rem;
+		}
+		&:hover {
+			span {
+				animation: spin 2s linear infinite;
+			}
+		}
+		h1 {
+			font-family: 'Pocket Monk', sans-serif;
+			font-size: 3rem;
+		}
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

@@ -1,0 +1,72 @@
+/* -----[ Fonts ]----- */
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;700&display=swap');
+
+@font-face {
+	font-weight: 400;
+	font-family: 'Pocket Monk';
+	src: url('../src/assets/fonts/PocketMonk-15ze.ttf');
+}
+
+/* -----[ Colors ]----- */
+:root {
+	--background: #efefef;
+	--background-dark: #1d2433;
+	--text-color-dark: #1d1d1d;
+	--text-color-light: #ffffff;
+}
+$type-colors: (
+	bug: #a7b723,
+	dark: #75574c,
+	dragon: #7037ff,
+	electric: #f9cf30,
+	fairy: #e69eac,
+	fighting: #c12239,
+	fire: #f57d31,
+	flying: #a891ec,
+	ghost: #70559b,
+	grass: #74cb48,
+	ground: #dec16b,
+	ice: #9ad6df,
+	normal: #aaa67f,
+	poison: #a43e9e,
+	psychic: #fb5584,
+	rock: #b69e31,
+	steel: #b7b9d0,
+	water: #6493eb,
+);
+
+.is {
+	@each $type, $color in $type-colors {
+		&-background-#{$type} {
+			background: $color;
+		}
+	}
+	@each $type, $color in $type-colors {
+		&-color-#{$type} {
+			color: $color;
+		}
+	}
+}
+
+/* -----[ Base Styles ]----- */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 62.5%;
+	line-height: normal;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background: var(--background-dark);
+	color: var(--text-color-light);
+	font-size: 1.6rem;
+}
+
+ul {
+	list-style: none;
+}
