@@ -1,22 +1,17 @@
 import { useToast } from '@chakra-ui/react'
 import axios from 'axios'
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Pagination from '../../components/Pagination/Pagination'
 import PokemonList from '../../components/PokemonList/PokemonList'
-import { CustomContext } from '../../context/context'
+import { BASE_API } from '../../constants/baseApi'
 import { NamedAPIResourceList } from '../../interfaces/pokemon.interface'
 
 const Home: FC = () => {
 	const [pokemonData, setPokemonData] = useState<NamedAPIResourceList | null>(
 		null
 	)
+	const [currentPageUrl, setCurrentPageUrl] = useState<string>(BASE_API)
 	const toast = useToast()
-
-	const customContext = useContext(CustomContext)
-
-	if (!customContext) return null
-
-	const { currentPageUrl } = customContext
 
 	useEffect(() => {
 		axios
@@ -39,7 +34,11 @@ const Home: FC = () => {
 	return (
 		<div className='home'>
 			<PokemonList pokemonData={pokemonData?.results} />
-			<Pagination next={pokemonData?.next} previous={pokemonData?.previous} />
+			<Pagination
+				setCurrentPageUrl={setCurrentPageUrl}
+				next={pokemonData?.next}
+				previous={pokemonData?.previous}
+			/>
 		</div>
 	)
 }

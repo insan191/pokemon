@@ -1,24 +1,30 @@
 import {
 	CircularProgress,
 	CircularProgressLabel,
+	Skeleton,
 	useToast,
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { STAT_COLOR } from '../../constants/statColor'
 import { Pokemon } from '../../interfaces/pokemon.interface'
 import { IPokemonCard } from './PokemonCard.interface'
 import './PokemonCard.scss'
 
 const PokemonCard: FC<IPokemonCard> = ({ url }) => {
 	const [pokemon, setPokemon] = useState<Pokemon | null>(null)
+	const [isLoading, setIsLoading] = useState<boolean>(true)
 
 	const toast = useToast()
 	const nav = useNavigate()
+
 	useEffect(() => {
+		setIsLoading(true)
 		axios
 			.get<Pokemon>(url)
 			.then(({ data }) => {
+				setIsLoading(false)
 				setPokemon(data)
 			})
 			.catch(error => {
@@ -34,8 +40,22 @@ const PokemonCard: FC<IPokemonCard> = ({ url }) => {
 			})
 	}, [url, nav, toast])
 
+	const goToPokemonPage = () => {
+		nav(`/pokemon/${pokemon?.id}`)
+	}
+	if (isLoading) {
+		return (
+			<div className='pokemonCard isLoading'>
+				<Skeleton height='100%' />
+			</div>
+		)
+	}
+
 	return (
-		<div className={`pokemonCard is-background-${pokemon?.types[0].type.name}`}>
+		<div
+			className={`pokemonCard is-background-${pokemon?.types[0].type.name}`}
+			onClick={goToPokemonPage}
+		>
 			<div className='pokemonCard__heading'>
 				<h2>{pokemon?.name}</h2>
 				<p className={`is-color-${pokemon?.types[0].type.name}`}>
@@ -51,18 +71,29 @@ const PokemonCard: FC<IPokemonCard> = ({ url }) => {
 			<div className='pokemonCard__info'>
 				<div className='pokemonCard__types'>
 					{pokemon?.types.map(t => (
-						<p className={`is-background-${pokemon?.types[0].type.name}`}>
+						<p
+							key={t.type.name}
+							className={`is-background-${pokemon?.types[0].type.name}`}
+						>
 							{t.type.name}
 						</p>
 					))}
 				</div>
-				<h4 className='pokemonCard__info-title'>Stats</h4>
+				<h4
+					className={`pokemonCard__info-title is-color-${pokemon?.types[0].type.name}`}
+				>
+					Stats
+				</h4>
 				<div className='pokemonCard__stats'>
 					{pokemon?.stats.map(
 						(stat, index) =>
 							index < 3 && (
-								<CircularProgress value={stat.base_stat} color='green.400'>
-									<CircularProgressLabel>
+								<CircularProgress
+									key={stat.stat.name}
+									value={stat.base_stat}
+									color={STAT_COLOR[stat.stat.name]}
+								>
+									<CircularProgressLabel color={STAT_COLOR[stat.stat.name]}>
 										{stat.stat.name.substring(0, 3)}
 									</CircularProgressLabel>
 								</CircularProgress>

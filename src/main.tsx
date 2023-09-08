@@ -3,7 +3,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
-import { Context } from './context/context.tsx'
 import './index.scss'
 
 const theme = extendTheme({
@@ -25,12 +24,10 @@ const theme = extendTheme({
 })
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<Context>
-			<BrowserRouter>
-				<ChakraProvider theme={theme}>
-					<App />
-				</ChakraProvider>
-			</BrowserRouter>
-		</Context>
+		<BrowserRouter>
+			<ChakraProvider theme={theme}>
+				<App />
+			</ChakraProvider>
+		</BrowserRouter>
 	</React.StrictMode>
 )

@@ -1,14 +1,10 @@
 import { Button } from '@chakra-ui/react'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import { HiArrowSmLeft, HiArrowSmRight } from 'react-icons/hi'
-import { CustomContext } from '../../context/context'
 import { IPagination } from './Pagination.interface'
+import './Pagination.scss'
 
-const Pagination: FC<IPagination> = ({ next, previous }) => {
-	const customContext = useContext(CustomContext)
-	if (!customContext) return null
-	const { setCurrentPageUrl } = customContext
-
+const Pagination: FC<IPagination> = ({ next, previous, setCurrentPageUrl }) => {
 	const goToPrev = () => {
 		previous && setCurrentPageUrl(previous)
 	}
@@ -20,7 +16,7 @@ const Pagination: FC<IPagination> = ({ next, previous }) => {
 		<div className='pagination'>
 			<Button
 				colorScheme='red'
-				size='md'
+				size='lg'
 				onClick={goToPrev}
 				isDisabled={!previous && true}
 			>
@@ -28,7 +24,7 @@ const Pagination: FC<IPagination> = ({ next, previous }) => {
 			</Button>
 			<Button
 				colorScheme='red'
-				size='md'
+				size='lg'
 				onClick={goToNext}
 				isDisabled={!next && true}
 			>

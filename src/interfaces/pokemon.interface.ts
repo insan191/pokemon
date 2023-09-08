@@ -1,3 +1,5 @@
+import { STAT_COLOR } from '../constants/statColor'
+
 export interface NamedAPIResourceList {
 	count: number
 	next: null | string
@@ -6,7 +8,7 @@ export interface NamedAPIResourceList {
 }
 
 export interface NamedAPIResource {
-	name: string
+	name: keyof typeof STAT_COLOR
 	url: string
 }
 
@@ -15,7 +17,7 @@ export interface Pokemon {
 	base_experience: number | null
 	forms: NamedAPIResource[]
 	game_indices: PokemonGameIndex[]
-	height: number
+	height: number | null
 	held_items: HeldItem[]
 	id: number
 	is_default: boolean
@@ -87,8 +89,8 @@ interface PokemonSprites {
 }
 
 interface DreamWorld {
-	front_default: null | string
-	front_female: null | string
+	front_default: string
+	front_female: string
 }
 
 interface Other {
@@ -105,7 +107,7 @@ interface Home {
 }
 
 interface OfficialArtwork {
-	front_default: null | string
+	front_default: string
 	front_shiny: null | string
 }
 
