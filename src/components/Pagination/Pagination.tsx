@@ -4,30 +4,13 @@ import { HiArrowSmLeft, HiArrowSmRight } from 'react-icons/hi'
 import { IPagination } from './Pagination.interface'
 import './Pagination.scss'
 
-const Pagination: FC<IPagination> = ({ next, previous, setCurrentPageUrl }) => {
-	const goToPrev = () => {
-		previous && setCurrentPageUrl(previous)
-	}
-
-	const goToNext = () => {
-		next && setCurrentPageUrl(next)
-	}
+const Pagination: FC<IPagination> = ({ goToPrev, goToNext }) => {
 	return (
 		<div className='pagination'>
-			<Button
-				colorScheme='red'
-				size='lg'
-				onClick={goToPrev}
-				isDisabled={!previous && true}
-			>
+			<Button colorScheme='red' size='lg' onClick={goToPrev}>
 				<HiArrowSmLeft />
 			</Button>
-			<Button
-				colorScheme='red'
-				size='lg'
-				onClick={goToNext}
-				isDisabled={!next && true}
-			>
+			<Button colorScheme='red' size='lg' onClick={goToNext}>
 				<HiArrowSmRight />
 			</Button>
 		</div>

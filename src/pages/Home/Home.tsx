@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import Pagination from '../../components/Pagination/Pagination'
 import PokemonList from '../../components/PokemonList/PokemonList'
 import { BASE_API } from '../../constants/baseApi'
-import { NamedAPIResourceList } from '../../interfaces/pokemon.interface'
+import { NamedAPIResourceList } from '../../interfaces/pokemon.interface' // Assuming you have a Pokemon interface
 
 const Home: FC = () => {
 	const [pokemonData, setPokemonData] = useState<NamedAPIResourceList | null>(
@@ -31,13 +31,21 @@ const Home: FC = () => {
 			})
 	}, [currentPageUrl, toast])
 
+	const goToPrev = () => {
+		setCurrentPageUrl(pokemonData?.previous || BASE_API)
+	}
+
+	const goToNext = () => {
+		setCurrentPageUrl(pokemonData?.next || BASE_API)
+	}
+
 	return (
 		<div className='home'>
 			<PokemonList pokemonData={pokemonData?.results} />
 			<Pagination
 				setCurrentPageUrl={setCurrentPageUrl}
-				next={pokemonData?.next}
-				previous={pokemonData?.previous}
+				goToNext={goToNext}
+				goToPrev={goToPrev}
 			/>
 		</div>
 	)

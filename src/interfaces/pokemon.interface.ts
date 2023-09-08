@@ -19,7 +19,7 @@ export interface Pokemon {
 	game_indices: PokemonGameIndex[]
 	height: number | null
 	held_items: HeldItem[]
-	id: number
+	id: number | null
 	is_default: boolean
 	location_area_encounters: string
 	moves: MoveElement[]
